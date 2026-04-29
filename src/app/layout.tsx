@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
-import { Brain, BookOpen, Archive, Mail } from "lucide-react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,64 +29,85 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         {/* HEADER */}
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2 group">
-              <Brain className="w-7 h-7 text-accent group-hover:rotate-12 transition-transform" />
-              <span className="text-lg font-bold tracking-tight text-foreground">
-                The Neural Notebook
-              </span>
+        <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between h-16">
+            <Link
+              href="/"
+              className="text-sm font-medium tracking-wide uppercase text-foreground hover:text-muted transition-colors duration-300"
+            >
+              The Neural Notebook
             </Link>
-            <nav className="flex items-center gap-1 text-sm font-medium">
+            <nav className="flex items-center gap-8 text-sm">
               <Link
                 href="/"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted hover:text-foreground hover:bg-accent/5 transition-colors"
+                className="text-muted hover:text-foreground transition-colors duration-300"
               >
-                <BookOpen className="w-4 h-4" />
-                <span className="hidden sm:inline">Home</span>
+                Home
               </Link>
               <Link
                 href="/archive"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-muted hover:text-foreground hover:bg-accent/5 transition-colors"
+                className="text-muted hover:text-foreground transition-colors duration-300"
               >
-                <Archive className="w-4 h-4" />
-                <span className="hidden sm:inline">Archive</span>
+                Archive
               </Link>
               <Link
                 href="/subscribe"
-                className="flex items-center gap-1.5 ml-2 px-4 py-2 rounded-lg bg-accent text-white hover:bg-accent/90 transition-colors"
+                className="text-muted hover:text-foreground transition-colors duration-300"
               >
-                <Mail className="w-4 h-4" />
-                <span>Subscribe</span>
+                Subscribe
               </Link>
             </nav>
           </div>
         </header>
 
+        {/* SPACER */}
+        <div className="h-16" />
+
         {/* MAIN */}
         <main className="flex-1">{children}</main>
 
         {/* FOOTER */}
-        <footer className="border-t border-border bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <Brain className="w-5 h-5 text-accent" />
-                <span className="font-semibold text-foreground">
+        <footer className="border-t border-border">
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-muted mb-4">
                   The Neural Notebook
-                </span>
+                </p>
+                <p className="text-sm text-muted/70 leading-relaxed">
+                  Notes, insights &amp; experiments in data science and AI.
+                </p>
               </div>
-              <div className="flex items-center gap-6 text-sm text-muted">
-                <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-                <Link href="/archive" className="hover:text-foreground transition-colors">Archive</Link>
-                <Link href="/subscribe" className="hover:text-foreground transition-colors">Subscribe</Link>
+              <div>
+                <p className="text-xs uppercase tracking-widest text-muted mb-4">
+                  Pages
+                </p>
+                <div className="flex flex-col gap-2.5 text-sm">
+                  <Link href="/" className="text-muted/70 hover:text-foreground transition-colors duration-300">Home</Link>
+                  <Link href="/archive" className="text-muted/70 hover:text-foreground transition-colors duration-300">Archive</Link>
+                  <Link href="/subscribe" className="text-muted/70 hover:text-foreground transition-colors duration-300">Subscribe</Link>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-widest text-muted mb-4">
+                  Connect
+                </p>
+                <div className="flex flex-col gap-2.5 text-sm">
+                  <a href="https://github.com/pujithabobbili" target="_blank" rel="noopener noreferrer" className="text-muted/70 hover:text-foreground transition-colors duration-300">GitHub</a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted/70 hover:text-foreground transition-colors duration-300">LinkedIn</a>
+                </div>
               </div>
             </div>
-            <p className="mt-6 text-center text-xs text-muted">
-              &copy; {new Date().getFullYear()} The Neural Notebook. Built with curiosity and caffeine.
-            </p>
+            <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-xs text-muted/50">
+                &copy; {new Date().getFullYear()} The Neural Notebook
+              </p>
+              <p className="text-xs text-muted/50">
+                Built with Next.js
+              </p>
+            </div>
           </div>
         </footer>
       </body>

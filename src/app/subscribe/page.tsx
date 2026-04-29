@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Sparkles, CheckCircle } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 
 export default function SubscribePage() {
   const [email, setEmail] = useState("");
@@ -15,81 +15,85 @@ export default function SubscribePage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div className="text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent/10 mb-6">
-          <Mail className="w-8 h-8 text-accent" />
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-          Subscribe to The Neural Notebook
-        </h1>
-        <p className="mt-4 text-lg text-muted leading-relaxed max-w-md mx-auto">
-          Get practical insights on data science, ML &amp; AI delivered to your
-          inbox. No spam, unsubscribe anytime.
-        </p>
-      </div>
+    <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 animate-fade-up">
+      <p className="text-xs uppercase tracking-[0.2em] text-muted mb-6">
+        Subscribe
+      </p>
 
-      {subscribed ? (
-        <div className="mt-10 text-center">
-          <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-foreground">
-            You&apos;re subscribed!
-          </h2>
-          <p className="mt-2 text-muted">
-            Thanks for joining. You&apos;ll hear from me soon.
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        {/* LEFT */}
+        <div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight leading-[1.1] mb-6">
+            Stay in the loop.
+          </h1>
+          <p className="text-muted leading-relaxed text-lg max-w-md">
+            Get practical insights on data science, ML &amp; AI delivered to
+            your inbox. No noise, just signal.
           </p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="mt-10 space-y-4">
-          <div>
-            <label htmlFor="email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-border bg-white text-foreground placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all text-base"
-            />
+
+          <div className="mt-12 space-y-5">
+            {[
+              "Practical tutorials with real code",
+              "Honest tool & framework reviews",
+              "Deep dives into ML systems, RAG & LLMs",
+              "Career insights for data scientists",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <div className="mt-0.5 w-5 h-5 rounded-full border border-border-light flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-muted" />
+                </div>
+                <span className="text-sm text-muted/80">{item}</span>
+              </div>
+            ))}
           </div>
-          <button
-            type="submit"
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent text-white font-semibold text-base hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent/40 transition-all cursor-pointer"
-          >
-            <Sparkles className="w-5 h-5" />
-            Subscribe
-          </button>
-          <p className="text-xs text-center text-muted">
-            No spam. Unsubscribe anytime.
-          </p>
-        </form>
-      )}
+        </div>
 
-      <div className="mt-16 rounded-2xl bg-white border border-border p-6">
-        <h3 className="font-bold text-foreground mb-3">
-          What you&apos;ll get:
-        </h3>
-        <ul className="space-y-2 text-sm text-muted">
-          <li className="flex items-start gap-2">
-            <span className="mt-1 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-            Practical tutorials with real code and real data
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="mt-1 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-            Honest reviews of tools, frameworks &amp; libraries
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="mt-1 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-            Deep dives into ML systems, RAG, LLMs &amp; more
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="mt-1 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-            Career insights for growing data scientists
-          </li>
-        </ul>
+        {/* RIGHT */}
+        <div className="flex items-center">
+          {subscribed ? (
+            <div>
+              <div className="w-12 h-12 rounded-full border border-border-light flex items-center justify-center mb-6">
+                <Check className="w-6 h-6 text-foreground" />
+              </div>
+              <h2 className="text-2xl font-light tracking-tight mb-3">
+                You&apos;re in.
+              </h2>
+              <p className="text-muted leading-relaxed">
+                Thanks for subscribing. You&apos;ll hear from me soon.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="w-full space-y-6">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-xs uppercase tracking-widest text-muted mb-3"
+                >
+                  Email address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-0 py-3 bg-transparent border-0 border-b border-border-light text-foreground placeholder:text-muted/40 focus:outline-none focus:border-foreground transition-colors duration-300 text-lg"
+                />
+              </div>
+              <button
+                type="submit"
+                className="group inline-flex items-center gap-2 border border-border-light rounded-full px-6 py-3 text-sm text-muted hover:text-foreground hover:border-foreground transition-all duration-300 cursor-pointer"
+              >
+                Subscribe
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+              </button>
+              <p className="text-xs text-muted/50">
+                No spam. Unsubscribe anytime.
+              </p>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Clock, ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { posts } from "@/lib/posts";
 
 export const metadata = {
@@ -8,40 +8,43 @@ export const metadata = {
 
 export default function ArchivePage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="text-3xl font-extrabold tracking-tight text-foreground mb-2">
+    <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 animate-fade-up">
+      <p className="text-xs uppercase tracking-[0.2em] text-muted mb-6">
         Archive
+      </p>
+      <h1 className="text-4xl sm:text-5xl font-light tracking-tight leading-[1.1] max-w-3xl mb-16">
+        Every post, newest first.
       </h1>
-      <p className="text-muted mb-10">Every post, newest first.</p>
 
-      <div className="space-y-4">
-        {posts.map((post) => (
+      <div className="divide-y divide-border">
+        {posts.map((post, i) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
             className="group block"
           >
-            <article className="rounded-xl bg-white border border-border p-5 sm:p-6 hover:shadow-md hover:border-accent/30 transition-all">
-              <div className="flex items-center gap-3 text-xs text-muted mb-2">
-                <span>{post.date}</span>
-                <span className="w-1 h-1 rounded-full bg-muted" />
-                <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" />
-                  {post.readTime}
+            <article className="py-8 grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 items-start">
+              <div className="sm:col-span-1">
+                <span className="text-xs text-muted/40 font-mono">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="w-1 h-1 rounded-full bg-muted" />
-                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-accent/10 text-accent">
+              </div>
+              <div className="sm:col-span-7">
+                <h2 className="text-xl sm:text-2xl font-light tracking-tight group-hover:text-muted transition-colors duration-300">
+                  {post.title}
+                </h2>
+                <p className="mt-2 text-sm text-muted/70 leading-relaxed line-clamp-2">
+                  {post.excerpt}
+                </p>
+              </div>
+              <div className="sm:col-span-2 flex sm:justify-end">
+                <span className="text-xs uppercase tracking-widest text-muted/50">
                   {post.category}
                 </span>
               </div>
-              <h2 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">
-                {post.title}
-              </h2>
-              <p className="mt-1.5 text-sm text-muted line-clamp-2">
-                {post.excerpt}
-              </p>
-              <div className="mt-3 flex items-center gap-1 text-accent text-sm font-semibold">
-                Read <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="sm:col-span-2 flex sm:justify-end items-center gap-2">
+                <span className="text-xs text-muted/50">{post.date}</span>
+                <ArrowUpRight className="w-4 h-4 text-muted/30 group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
               </div>
             </article>
           </Link>

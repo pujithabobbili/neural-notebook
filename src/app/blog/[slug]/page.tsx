@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Clock, Tag } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getPostBySlug, posts } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -20,65 +20,69 @@ export default async function BlogPostPage({
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors mb-8"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back to home
-      </Link>
+    <div className="animate-fade-up">
+      {/* HEADER */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-16 pb-20">
+        <Link
+          href="/"
+          className="group inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors duration-300 mb-16"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-300" />
+          Back
+        </Link>
 
-      <article>
-        <header className="mb-8">
-          <div className="flex flex-wrap items-center gap-3 text-sm text-muted mb-4">
-            <span>{post.date}</span>
-            <span className="w-1 h-1 rounded-full bg-muted" />
-            <span className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              {post.readTime}
-            </span>
-            <span className="w-1 h-1 rounded-full bg-muted" />
-            <span className="flex items-center gap-1">
-              <Tag className="w-4 h-4" />
-              {post.category}
-            </span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground leading-tight">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-end">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight leading-[1.1]">
             {post.title}
           </h1>
-          <p className="mt-4 text-lg text-muted leading-relaxed">
-            {post.excerpt}
-          </p>
-          <div className="mt-6 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-sm">
-              {post.author.name.charAt(0)}
+          <div className="lg:text-right">
+            <div className="flex flex-wrap lg:justify-end gap-6 text-xs text-muted uppercase tracking-widest">
+              <span>{post.date}</span>
+              <span>{post.readTime}</span>
+              <span>{post.category}</span>
             </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">
-                {post.author.name}
-              </p>
-              <p className="text-xs text-muted">Author</p>
+            <p className="mt-4 text-muted leading-relaxed lg:max-w-md lg:ml-auto">
+              {post.excerpt}
+            </p>
+            <div className="mt-6 flex items-center gap-3 lg:justify-end">
+              <div className="w-8 h-8 rounded-full bg-surface border border-border flex items-center justify-center text-muted text-xs font-medium">
+                {post.author.name.charAt(0)}
+              </div>
+              <span className="text-sm text-muted">{post.author.name}</span>
             </div>
           </div>
-        </header>
+        </div>
+      </div>
 
-        <hr className="border-border mb-8" />
+      {/* DIVIDER */}
+      <div className="border-t border-border" />
 
+      {/* CONTENT */}
+      <div className="max-w-3xl mx-auto px-6 sm:px-10 lg:px-16 py-20">
         <div
           className="prose max-w-none"
           dangerouslySetInnerHTML={{ __html: markdownToHtml(post.content) }}
         />
-      </article>
+      </div>
 
-      <div className="mt-12 pt-8 border-t border-border">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent/80 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to all posts
-        </Link>
+      {/* BOTTOM NAV */}
+      <div className="border-t border-border">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors duration-300"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-300" />
+            All posts
+          </Link>
+          <Link
+            href="/subscribe"
+            className="group inline-flex items-center gap-2 text-sm border border-border-light rounded-full px-5 py-2 text-muted hover:text-foreground hover:border-foreground transition-all duration-300"
+          >
+            Subscribe for more
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     </div>
   );

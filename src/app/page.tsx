@@ -1,168 +1,159 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Clock,
-  Sparkles,
-  TrendingUp,
-  Mail,
-  ChevronRight,
-} from "lucide-react";
-import { getFeaturedPost, getLatestPosts, getTrendingPosts } from "@/lib/posts";
+import { ArrowUpRight } from "lucide-react";
+import { getFeaturedPost, getLatestPosts } from "@/lib/posts";
 
 export default function Home() {
   const featured = getFeaturedPost();
   const latest = getLatestPosts();
-  const trending = getTrendingPosts();
+  const allPosts = featured ? [featured, ...latest] : latest;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <>
       {/* HERO */}
-      <section className="text-center mb-14">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
-          The Neural Notebook
-        </h1>
-        <p className="mt-3 text-lg text-muted max-w-xl mx-auto">
-          Notes, insights &amp; experiments in data science and AI.
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-20 pb-24 animate-fade-up">
+        <p className="text-xs uppercase tracking-[0.2em] text-muted mb-6">
+          01 &mdash; Data Science &amp; AI
         </p>
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-[1.1] max-w-4xl">
+          Notes, insights &amp;{" "}
+          <span className="text-muted">experiments</span> in data science
+          and AI.
+        </h1>
+        <div className="mt-10 flex items-center gap-6">
+          <Link
+            href="/archive"
+            className="group inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors duration-300"
+          >
+            View all posts
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+          </Link>
+          <Link
+            href="/subscribe"
+            className="inline-flex items-center gap-2 text-sm border border-border-light rounded-full px-5 py-2 text-muted hover:text-foreground hover:border-foreground transition-all duration-300"
+          >
+            Subscribe
+          </Link>
+        </div>
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* LEFT COLUMN — Featured + Latest */}
-        <div className="lg:col-span-2 space-y-10">
-          {/* FEATURED */}
-          {featured && (
-            <section>
-              <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-accent" />
-                <h2 className="text-xs font-bold uppercase tracking-widest text-accent">
-                  Featured
-                </h2>
-              </div>
-              <Link href={`/blog/${featured.slug}`} className="group block">
-                <article className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent/5 via-white to-accent-light/10 border border-border p-6 sm:p-8 hover:shadow-lg hover:shadow-accent/5 transition-all">
-                  <div className="flex items-center gap-3 text-xs text-muted mb-3">
-                    <span>{featured.date}</span>
-                    <span className="w-1 h-1 rounded-full bg-muted" />
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5" />
-                      {featured.readTime}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-foreground group-hover:text-accent transition-colors leading-snug">
-                    {featured.title}
-                  </h3>
-                  <p className="mt-3 text-muted leading-relaxed">
-                    {featured.excerpt}
-                  </p>
-                  <div className="mt-5 flex items-center gap-1 text-accent text-sm font-semibold">
-                    Read more <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                  <span className="inline-block mt-4 px-3 py-1 text-xs font-medium rounded-full bg-accent/10 text-accent">
+      {/* DIVIDER */}
+      <div className="border-t border-border" />
+
+      {/* FEATURED POST */}
+      {featured && (
+        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 animate-fade-up-delay-1">
+          <div className="flex items-center justify-between mb-12">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted">
+              02 &mdash; Featured
+            </p>
+            <p className="text-xs text-muted">{featured.date}</p>
+          </div>
+          <Link href={`/blog/${featured.slug}`} className="group block">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight leading-[1.15] group-hover:text-muted transition-colors duration-500">
+                {featured.title}
+              </h2>
+              <div>
+                <p className="text-muted leading-relaxed text-lg">
+                  {featured.excerpt}
+                </p>
+                <div className="mt-6 flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-widest text-muted/60">
                     {featured.category}
                   </span>
-                </article>
-              </Link>
-            </section>
-          )}
-
-          {/* LATEST */}
-          <section>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-5">
-              The Latest
-            </h2>
-            <div className="space-y-4">
-              {latest.map((post) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="group block"
-                >
-                  <article className="rounded-xl bg-white border border-border p-5 sm:p-6 hover:shadow-md hover:border-accent/30 transition-all">
-                    <div className="flex items-center gap-3 text-xs text-muted mb-2">
-                      <span>{post.date}</span>
-                      <span className="w-1 h-1 rounded-full bg-muted" />
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        {post.readTime}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm text-muted line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <span className="inline-block mt-3 px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent/10 text-accent">
-                      {post.category}
-                    </span>
-                  </article>
-                </Link>
-              ))}
+                  <span className="text-xs text-muted/60">
+                    {featured.readTime}
+                  </span>
+                </div>
+                <div className="mt-6 inline-flex items-center gap-2 text-sm text-foreground group-hover:gap-3 transition-all duration-300">
+                  Read article
+                  <ArrowUpRight className="w-4 h-4" />
+                </div>
+              </div>
             </div>
-          </section>
+          </Link>
+        </section>
+      )}
+
+      {/* DIVIDER */}
+      <div className="border-t border-border" />
+
+      {/* ALL POSTS */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 animate-fade-up-delay-2">
+        <div className="flex items-center justify-between mb-12">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted">
+            03 &mdash; All Posts
+          </p>
+          <Link
+            href="/archive"
+            className="group inline-flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors duration-300"
+          >
+            See all
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+          </Link>
         </div>
 
-        {/* RIGHT SIDEBAR */}
-        <aside className="space-y-8">
-          {/* TRENDING */}
-          <div className="rounded-2xl bg-white border border-border p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <TrendingUp className="w-5 h-5 text-accent" />
-              <h2 className="text-xs font-bold uppercase tracking-widest text-accent">
-                Trending
-              </h2>
-            </div>
-            <ul className="space-y-4">
-              {trending.map((post, i) => (
-                <li key={post.slug}>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="group flex gap-3"
-                  >
-                    <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full bg-accent/10 text-accent text-xs font-bold">
-                      {i + 1}
-                    </span>
-                    <div>
-                      <h3 className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
-                        {post.title}
-                      </h3>
-                      <span className="text-xs text-muted">{post.readTime}</span>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* SUBSCRIBE CTA */}
-          <div className="rounded-2xl bg-gradient-to-br from-accent to-accent-light p-6 text-white">
-            <Mail className="w-8 h-8 mb-3 opacity-80" />
-            <h2 className="text-lg font-bold">Stay in the loop</h2>
-            <p className="mt-1 text-sm text-white/80 leading-relaxed">
-              Get new posts on data science, ML &amp; AI delivered straight to
-              your inbox.
-            </p>
+        <div className="divide-y divide-border">
+          {allPosts.map((post, i) => (
             <Link
-              href="/subscribe"
-              className="mt-4 inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-white text-accent font-semibold text-sm hover:bg-white/90 transition-colors"
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="group block"
             >
-              Subscribe <ChevronRight className="w-4 h-4" />
+              <article className="py-8 grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 items-start">
+                <div className="sm:col-span-1">
+                  <span className="text-xs text-muted/40 font-mono">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="sm:col-span-7">
+                  <h3 className="text-xl sm:text-2xl font-light tracking-tight group-hover:text-muted transition-colors duration-300">
+                    {post.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted/70 leading-relaxed line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                </div>
+                <div className="sm:col-span-2 flex sm:justify-end">
+                  <span className="text-xs uppercase tracking-widest text-muted/50">
+                    {post.category}
+                  </span>
+                </div>
+                <div className="sm:col-span-2 flex sm:justify-end items-center gap-2">
+                  <span className="text-xs text-muted/50">{post.date}</span>
+                  <ArrowUpRight className="w-4 h-4 text-muted/30 group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                </div>
+              </article>
             </Link>
-          </div>
+          ))}
+        </div>
+      </section>
 
-          {/* ABOUT */}
-          <div className="rounded-2xl bg-white border border-border p-6">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-muted mb-3">
-              About
-            </h2>
-            <p className="text-sm text-muted leading-relaxed">
-              Hi, I&apos;m <strong className="text-foreground">Pujitha</strong>
-              &nbsp;&mdash; a data scientist exploring the intersection of ML,
-              AI, and real-world impact. This blog is where I share what I learn.
-            </p>
-          </div>
-        </aside>
-      </div>
-    </div>
+      {/* SUBSCRIBE SECTION */}
+      <div className="border-t border-border" />
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-24 animate-fade-up-delay-3">
+        <div className="flex items-center justify-between mb-12">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted">
+            04 &mdash; Stay Updated
+          </p>
+        </div>
+        <div className="max-w-2xl">
+          <h2 className="text-3xl sm:text-4xl font-light tracking-tight leading-snug">
+            Get new posts delivered to your inbox.
+          </h2>
+          <p className="mt-4 text-muted leading-relaxed">
+            No spam. Practical insights on data science, ML &amp; AI.
+            Unsubscribe anytime.
+          </p>
+          <Link
+            href="/subscribe"
+            className="mt-8 inline-flex items-center gap-2 border border-border-light rounded-full px-6 py-3 text-sm text-muted hover:text-foreground hover:border-foreground transition-all duration-300"
+          >
+            Subscribe
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }
