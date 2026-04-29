@@ -9,11 +9,9 @@ declare global {
   }
 }
 
-const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // TODO: Replace with your real Google Analytics ID
+const GA_MEASUREMENT_ID = "G-KN74MD2TE4";
 
 export default function Analytics() {
-  if (GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return null;
-
   return (
     <>
       <Script
