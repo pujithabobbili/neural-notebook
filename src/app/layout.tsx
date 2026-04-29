@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import Analytics from "@/components/Analytics";
+import SocialIcons from "@/components/SocialIcons";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "The Neural Notebook",
   description:
-    "Notes, insights & experiments in data science and AI — by Pujitha",
+    "Notes, insights & experiments in data science and AI — by Pujitha Bobbili",
 };
 
 export default function RootLayout({
@@ -30,6 +32,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Analytics />
         {/* HEADER */}
         <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
           <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between h-16">
@@ -94,10 +97,7 @@ export default function RootLayout({
                 <p className="text-xs uppercase tracking-widest text-muted mb-4">
                   Connect
                 </p>
-                <div className="flex flex-col gap-2.5 text-sm">
-                  <a href="https://github.com/pujithabobbili" target="_blank" rel="noopener noreferrer" className="text-muted/70 hover:text-foreground transition-colors duration-300">GitHub</a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted/70 hover:text-foreground transition-colors duration-300">LinkedIn</a>
-                </div>
+                <SocialIcons size="md" />
               </div>
             </div>
             <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">

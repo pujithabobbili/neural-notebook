@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getPostBySlug, posts } from "@/lib/posts";
+import SocialIcons from "@/components/SocialIcons";
 
 export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
@@ -49,6 +50,7 @@ export default async function BlogPostPage({
                 {post.author.name.charAt(0)}
               </div>
               <span className="text-sm text-muted">{post.author.name}</span>
+              <SocialIcons size="sm" />
             </div>
           </div>
         </div>

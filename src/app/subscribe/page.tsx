@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
+import { trackEvent } from "@/components/Analytics";
 
 export default function SubscribePage() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,14 @@ export default function SubscribePage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (email.trim()) {
+      // Store subscriber locally
+      const subs = JSON.parse(localStorage.getItem("nn_subscribers") || "[]");
+      subs.push({ email: email.trim(), date: new Date().toISOString() });
+      localStorage.setItem("nn_subscribers", JSON.stringify(subs));
+
+      // Fire analytics event
+      trackEvent("subscribe", "newsletter", email.trim());
+
       setSubscribed(true);
     }
   }

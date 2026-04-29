@@ -41,7 +41,7 @@ LLMs are incredible tools, but they haven't replaced the fundamentals. If you wa
     readTime: "5 min read",
     category: "Machine Learning",
     featured: true,
-    author: { name: "Pujitha" },
+    author: { name: "Pujitha Bobbili" },
   },
   {
     slug: "building-rag-pipeline-from-scratch",
@@ -83,7 +83,7 @@ RAG is not a silver bullet. It works best when your documents are well-structure
     date: "Apr 24, 2026",
     readTime: "7 min read",
     category: "AI Engineering",
-    author: { name: "Pujitha" },
+    author: { name: "Pujitha Bobbili" },
   },
   {
     slug: "pandas-vs-polars-2026-benchmarks",
@@ -128,7 +128,7 @@ The ecosystem is maturing fast. Polars + DuckDB is becoming my default stack for
     date: "Apr 19, 2026",
     readTime: "4 min read",
     category: "Data Engineering",
-    author: { name: "Pujitha" },
+    author: { name: "Pujitha Bobbili" },
   },
   {
     slug: "welcome-to-the-neural-notebook",
@@ -166,7 +166,7 @@ Here's to learning in public. 🚀
     date: "Apr 10, 2026",
     readTime: "2 min read",
     category: "General",
-    author: { name: "Pujitha" },
+    author: { name: "Pujitha Bobbili" },
   },
 ];
 
